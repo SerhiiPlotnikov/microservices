@@ -6,13 +6,12 @@ namespace App\Services;
 
 use App\Traits\ConsumeExternalService;
 
-class AuthorService
+final class AuthorService
 {
     use ConsumeExternalService;
 
-    public string $baseUri;
-
-    public string $secret;
+    private string $baseUri;
+    private string $secret;
 
     public function __construct()
     {

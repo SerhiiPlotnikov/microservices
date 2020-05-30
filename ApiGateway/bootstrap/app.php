@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -19,7 +19,7 @@ date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
 |
 */
 
-$app = new Laravel\Lumen\Application(
+$app = new \Dusterio\LumenPassport\Lumen7Application(
     dirname(__DIR__)
 );
 
@@ -80,7 +80,7 @@ $app->configure('auth');
 
 $app->routeMiddleware(
     [
-//     'auth' => App\Http\Middleware\Authenticate::class,
+        'auth' => App\Http\Middleware\Authenticate::class,
         'client.credentials' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class
     ]
 );
@@ -118,7 +118,7 @@ $app->router->group(
         'namespace' => 'App\Http\Controllers',
     ],
     function ($router) {
-        require __DIR__ . '/../routes/web.php';
+        require __DIR__.'/../routes/web.php';
     }
 );
 
