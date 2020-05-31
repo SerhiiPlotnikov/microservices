@@ -1,0 +1,38 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: ./docker/
+      dockerfile: docker/nginx.docker
+    volumes:
+      - ./project:/app
+    depends_on:
+      - php-fpm
+    ports:
+      - "8080:80"
+  php-fpm:
+    build:
+      context: ./docker
+      dockerfile: docker/php-fpm.docker
+    volumes:
+      - ./project:/app
+  php-cli:
+    build:
+      context: ./docker
+      dockerfile: docker/php-cli.docker
+    volumes:
+      - ./project:/app
+      - composer:/root/.composer/cache
+  mysql:
+    image: mysql:5.7.30
+    environment:
+      DB_PASSWORD: secret
+      DB_DATABASE: homestead
+      DB_USERNAME: root
+    volumes:
+      - ./db_data: /var/lib/mysql
+volumes:
+  composer:
+  db_data:
+    driver: local
+
